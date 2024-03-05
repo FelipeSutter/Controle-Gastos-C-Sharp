@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Codes\\API-Restful\\controle-gastos-c-sharp\\src\\ControleGastos.API\\ControleGastos.API.csproj": {}
+    "c:\\Codes\\API-Restful\\controle-gastos-c-sharp\\src\\ControleGastos.API\\ControleGastos.API.csproj": {}
   },
   "projects": {
-    "C:\\Codes\\API-Restful\\controle-gastos-c-sharp\\src\\ControleGastos.API\\ControleGastos.API.csproj": {
+    "c:\\Codes\\API-Restful\\controle-gastos-c-sharp\\src\\ControleGastos.API\\ControleGastos.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Codes\\API-Restful\\controle-gastos-c-sharp\\src\\ControleGastos.API\\ControleGastos.API.csproj",
+        "projectUniqueName": "c:\\Codes\\API-Restful\\controle-gastos-c-sharp\\src\\ControleGastos.API\\ControleGastos.API.csproj",
         "projectName": "ControleGastos.API",
-        "projectPath": "C:\\Codes\\API-Restful\\controle-gastos-c-sharp\\src\\ControleGastos.API\\ControleGastos.API.csproj",
+        "projectPath": "c:\\Codes\\API-Restful\\controle-gastos-c-sharp\\src\\ControleGastos.API\\ControleGastos.API.csproj",
         "packagesPath": "C:\\Users\\FelipedeAssunçãoSutt\\.nuget\\packages\\",
-        "outputPath": "C:\\Codes\\API-Restful\\controle-gastos-c-sharp\\src\\ControleGastos.API\\obj\\",
+        "outputPath": "c:\\Codes\\API-Restful\\controle-gastos-c-sharp\\src\\ControleGastos.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

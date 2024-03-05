@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "UykWYKecarPWuAkTCbYT0lzqynA34yMqxzLt6PIdJ7268WbS1uHfY68tdVIdfnmm+i48F6nNqR8hEiYQlM1gsg==",
+  "dgSpecHash": "npxB68BhVi29yyzGeHVv8ksOWbuV/cCmyU9euipX+Gjd+FykhiNGN30XGY1brCtvpT81CoXqARE965MPtbUZUQ==",
   "success": true,
-  "projectFilePath": "C:\\Codes\\API-Restful\\controle-gastos-c-sharp\\src\\ControleGastos.API\\ControleGastos.API.csproj",
+  "projectFilePath": "c:\\Codes\\API-Restful\\controle-gastos-c-sharp\\src\\ControleGastos.API\\ControleGastos.API.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\FelipedeAssunçãoSutt\\.nuget\\packages\\automapper\\12.0.1\\automapper.12.0.1.nupkg.sha512",
     "C:\\Users\\FelipedeAssunçãoSutt\\.nuget\\packages\\fluentvalidation\\10.4.0\\fluentvalidation.10.4.0.nupkg.sha512",
