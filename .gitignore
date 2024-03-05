@@ -361,3 +361,12 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+# Ignore /obj and /Properties
+*./Properties
+*./obj
+
+# .NET Core 8.0 build artifacts
+*/bin/
+*/obj/
+*/Properties/
