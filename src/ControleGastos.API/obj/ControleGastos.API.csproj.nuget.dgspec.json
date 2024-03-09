@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Codes\\API-Restful\\controle-gastos-c-sharp\\src\\ControleGastos.API\\ControleGastos.API.csproj": {}
+    "C:\\devSerratec\\API_Restful\\workspace\\Controle-Gastos-C-Sharp\\src\\ControleGastos.API\\ControleGastos.API.csproj": {}
   },
   "projects": {
-    "c:\\Codes\\API-Restful\\controle-gastos-c-sharp\\src\\ControleGastos.API\\ControleGastos.API.csproj": {
+    "C:\\devSerratec\\API_Restful\\workspace\\Controle-Gastos-C-Sharp\\src\\ControleGastos.API\\ControleGastos.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Codes\\API-Restful\\controle-gastos-c-sharp\\src\\ControleGastos.API\\ControleGastos.API.csproj",
+        "projectUniqueName": "C:\\devSerratec\\API_Restful\\workspace\\Controle-Gastos-C-Sharp\\src\\ControleGastos.API\\ControleGastos.API.csproj",
         "projectName": "ControleGastos.API",
-        "projectPath": "c:\\Codes\\API-Restful\\controle-gastos-c-sharp\\src\\ControleGastos.API\\ControleGastos.API.csproj",
-        "packagesPath": "C:\\Users\\FelipedeAssunçãoSutt\\.nuget\\packages\\",
-        "outputPath": "c:\\Codes\\API-Restful\\controle-gastos-c-sharp\\src\\ControleGastos.API\\obj\\",
+        "projectPath": "C:\\devSerratec\\API_Restful\\workspace\\Controle-Gastos-C-Sharp\\src\\ControleGastos.API\\ControleGastos.API.csproj",
+        "packagesPath": "C:\\Users\\Canal\\.nuget\\packages\\",
+        "outputPath": "C:\\devSerratec\\API_Restful\\workspace\\Controle-Gastos-C-Sharp\\src\\ControleGastos.API\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\FelipedeAssunçãoSutt\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Canal\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -113,7 +113,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.201/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
