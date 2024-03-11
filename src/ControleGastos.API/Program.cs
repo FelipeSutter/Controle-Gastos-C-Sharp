@@ -1,7 +1,7 @@
 using System.Text;
 using ControleGastos.API.Data;
-using ControleGastos.API.Domain.Classes;
-using ControleGastos.API.Domain.Interfaces;
+using ControleGastos.API.Domain.Repositories.Classes;
+using ControleGastos.API.Domain.Repositories.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
