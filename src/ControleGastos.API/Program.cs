@@ -1,4 +1,6 @@
 using System.Text;
+using AutoMapper;
+using ControleGastos.API.AutoMapper;
 using ControleGastos.API.Data;
 using ControleGastos.API.Domain.Repositories.Classes;
 using ControleGastos.API.Domain.Repositories.Interfaces;
@@ -31,9 +33,19 @@ static void ConfigurarInjecaoDeDependencia(WebApplicationBuilder builder)
     builder.Services.AddDbContext<ApplicationContext>(options => 
     options.UseNpgsql(connectionString), ServiceLifetime.Transient, ServiceLifetime.Transient);
 
+    // Configura o Mapper
+    var config = new MapperConfiguration(config => {
+        config.AddProfile<UsuarioProfile>();
+        // Aqui entrará os outros profiles...
+    });
+
+    // Cria o mapper 
+    IMapper mapper = config.CreateMapper();
+
     builder.Services
     .AddSingleton(builder.Configuration)
     .AddSingleton(builder.Environment)
+    .AddSingleton(mapper)
 
     .AddScoped<IUsuarioRepository, UsuarioRepository>() // Injeção de dependencia do repository
     .AddScoped<IUsuarioService, UsuarioService>();
