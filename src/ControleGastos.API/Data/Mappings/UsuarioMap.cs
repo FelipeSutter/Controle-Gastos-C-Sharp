@@ -26,7 +26,7 @@ namespace ControleGastos.API.Data.Mappings
             .HasColumnType("VARCHAR")
             .IsRequired();
 
-            // Cria a tabela de data como varchar
+            // Cria a tabela de data como timestamp
             builder.Property(p => p.DataCadastro)
             .HasColumnType("timestamp")
             .IsRequired();

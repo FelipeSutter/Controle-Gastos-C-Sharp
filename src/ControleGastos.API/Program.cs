@@ -1,5 +1,7 @@
 using System.Text;
+using ControleGastos.API.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 
@@ -18,6 +20,13 @@ app.Run();
 // Metodo que configrua as injeções de dependencia do projeto.
 static void ConfigurarInjecaoDeDependencia(WebApplicationBuilder builder)
 {
+    // pega a connectionString que está definida no appsettings.json
+    string? connectionString = builder.Configuration.GetConnectionString("PADRAO");
+
+    // adiciona um contexto baseado na classe ApplicationContext, que contém todas as tabelas e mappings do banco
+    builder.Services.AddDbContext<ApplicationContext>(options => 
+    options.UseNpgsql(connectionString), ServiceLifetime.Transient, ServiceLifetime.Transient);
+
     builder.Services
     .AddSingleton(builder.Configuration)
     .AddSingleton(builder.Environment);
