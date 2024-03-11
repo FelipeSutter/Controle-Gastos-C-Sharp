@@ -2,6 +2,8 @@ using System.Text;
 using ControleGastos.API.Data;
 using ControleGastos.API.Domain.Repositories.Classes;
 using ControleGastos.API.Domain.Repositories.Interfaces;
+using ControleGastos.API.Domain.Services.Classes;
+using ControleGastos.API.Domain.Services.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
@@ -33,7 +35,8 @@ static void ConfigurarInjecaoDeDependencia(WebApplicationBuilder builder)
     .AddSingleton(builder.Configuration)
     .AddSingleton(builder.Environment)
 
-    .AddScoped<IUsuarioRepository, UsuarioRepository>(); // Injeção de dependencia do repository
+    .AddScoped<IUsuarioRepository, UsuarioRepository>() // Injeção de dependencia do repository
+    .AddScoped<IUsuarioService, UsuarioService>();
 }
 
 // Configura o serviços da API.

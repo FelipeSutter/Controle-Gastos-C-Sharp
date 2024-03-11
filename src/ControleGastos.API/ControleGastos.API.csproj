@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <Folder Include="Contracts\NaturezaDeLancamento\" />
+    <Folder Include="Domain\Services\Classes\" />
   </ItemGroup>
 
 </Project>
