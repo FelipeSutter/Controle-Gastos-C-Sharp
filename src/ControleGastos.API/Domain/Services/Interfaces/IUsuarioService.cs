@@ -7,4 +7,6 @@ public interface IUsuarioService : IService<UsuarioRequestContract, UsuarioRespo
 
     Task<UsuarioLoginResponseContract> Authenticate(UsuarioLoginRequestContract usuario);
 
+    Task<UsuarioResponseContract> GetByEmail(string email);
+
 }

@@ -11,19 +11,19 @@ public interface IService {
 	/// <typeparam name="Id">Tipo do Id</typeparam>
 	public interface IService<Request, Response, Id> where Request : class {
 		// Recupera tudo de um usuário específico
-		Task<IEnumerable<Response>> GetAll(Id idUsuario);
+		Task<IEnumerable<Response>> GetAll();
 
 		// Primeiro id é da entidade, segunda é para verificar se o que está sendo retornado é do usuario ou não
-		Task<Response> GetById(Id id, Id idUsuario);
+		Task<Response> GetById(Id id);
 
 		// Request da entidade, e id do usuário logado
-		Task<Response> Add(Request request, Id idUsuario);
+		Task<Response> Add(Request request);
 		
 		// Mesma coisa que o adicionar, mas tem que passar o id da entidade também
-		Task<Response> Update(Id id, Request request, Id idUsuario);
+		Task<Response> Update(Id id, Request request);
 		
 		// Deleta a entidade pelo id, e sempre do id que está logado
-		Task Delete(Id id, Id idUsuario);
+		Task Delete(Id id);
 
     }
 
