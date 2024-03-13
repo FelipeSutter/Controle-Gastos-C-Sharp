@@ -13,6 +13,7 @@ public class UsuarioService : IUsuarioService
 
     private readonly IUsuarioRepository _usuarioRepository;
     private readonly IMapper _mapper;
+    // Colocar o private TokenService
 
     public UsuarioService(IUsuarioRepository usuarioRepository, IMapper mapper) { 
         _usuarioRepository = usuarioRepository;

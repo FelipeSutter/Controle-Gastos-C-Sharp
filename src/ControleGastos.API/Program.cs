@@ -47,7 +47,9 @@ static void ConfigurarInjecaoDeDependencia(WebApplicationBuilder builder)
     .AddSingleton(builder.Environment)
     .AddSingleton(mapper)
 
-    .AddScoped<IUsuarioRepository, UsuarioRepository>() // Injeção de dependencia do repository
+    // Injeção de dependencia do repository
+    .AddScoped<TokenService>()
+    .AddScoped<IUsuarioRepository, UsuarioRepository>() 
     .AddScoped<IUsuarioService, UsuarioService>();
 }
 
