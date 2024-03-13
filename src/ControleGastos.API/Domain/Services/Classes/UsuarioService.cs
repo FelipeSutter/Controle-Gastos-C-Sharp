@@ -55,6 +55,7 @@ public class UsuarioService : IUsuarioService
 
     public async Task<UsuarioResponseContract> Update(long id, UsuarioRequestContract request)
     {
+        // Verificar se já existe um usuário, se não existir lança uma exception
         _ = await GetById(id) ?? throw new Exception("Usuário não encontrado para atualização");
 
         var usuario = _mapper.Map<Usuario>(request);
