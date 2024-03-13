@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace ControleGastos.API.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20240311150623_CriarEntidadeUsuario")]
+    [Migration("20240313181922_CriarEntidadeUsuario")]
     partial class CriarEntidadeUsuario
     {
         /// <inheritdoc />

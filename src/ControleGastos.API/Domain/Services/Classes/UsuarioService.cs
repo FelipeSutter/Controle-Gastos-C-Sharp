@@ -27,7 +27,8 @@ public class UsuarioService : IUsuarioService
 
     public async Task<IEnumerable<UsuarioResponseContract>> GetAll()
     {
-        return await GetAll();
+        var usuarios =  await _usuarioRepository.GetAll();
+        return usuarios.Select(u => _mapper.Map<UsuarioResponseContract>(u));   
     }
 
     public async Task<UsuarioResponseContract> GetByEmail(string email)
@@ -47,6 +48,7 @@ public class UsuarioService : IUsuarioService
         var usuario = _mapper.Map<Usuario>(request);
 
         usuario.Senha = GenerateHashPassword(usuario.Senha);
+        usuario.DataCadastro = DateTime.Now;
 
         usuario = await _usuarioRepository.Add(usuario);
 
@@ -69,7 +71,7 @@ public class UsuarioService : IUsuarioService
 
     public async Task Delete(long id) {
         // Acabar o método depois e continuar fazendo os outros métodos
-        var usuario = await GetById(id) ?? throw new Exception("Usuário não encontrado para inativação");
+        var usuario = await _usuarioRepository.GetById(id) ?? throw new Exception("Usuário não encontrado para inativação");
         await _usuarioRepository.Delete(_mapper.Map<Usuario>(usuario));
     }
 
@@ -82,7 +84,7 @@ public class UsuarioService : IUsuarioService
         {
             byte[] bytePassword = Encoding.UTF8.GetBytes(senha);
             byte[] byteHashPassword = sha256.ComputeHash(bytePassword);
-            hashPassword = BitConverter.ToString(byteHashPassword).ToLower();
+            hashPassword = BitConverter.ToString(byteHashPassword).Replace("-", "").ToLower();
         }
 
         return hashPassword;
