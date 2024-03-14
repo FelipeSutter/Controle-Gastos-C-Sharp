@@ -2,6 +2,7 @@
 using ControleGastos.API.Domain.Services.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Authentication;
 
 namespace ControleGastos.API.Controllers
 {
@@ -17,7 +18,22 @@ namespace ControleGastos.API.Controllers
         }
 
         [HttpPost]
+        [Route("login")]
         [AllowAnonymous] // Essa anotação diz que qualquer pessoa sem autentição consegue utilizar esse endpoint
+        public async Task<IActionResult> Authenticate(UsuarioRequestContract contract) {
+            try {
+                return Ok(await _usuarioService.Authenticate(contract)); 
+            } catch (AuthenticationException ex) {
+                return Unauthorized(new { statusCode = 401, message = ex.Message });
+            }
+            
+            catch (Exception ex) {
+                return Problem(ex.Message);
+            }
+        }
+
+        [HttpPost]
+        [Authorize] // Essa anotação diz que precisa de autenticação para utilizar esse endpoint 
         public async Task<IActionResult> Add(UsuarioRequestContract contract)
         {
             try
@@ -44,7 +60,7 @@ namespace ControleGastos.API.Controllers
 
         [HttpGet]
         [Route("id")]
-        [AllowAnonymous]
+        [Authorize]
         public async Task<IActionResult> GetById(long id)
         {
             try
@@ -59,7 +75,7 @@ namespace ControleGastos.API.Controllers
 
         [HttpPut]
         [Route("id")]
-        [AllowAnonymous]
+        [Authorize]
         public async Task<IActionResult> Update(long id, UsuarioRequestContract contract)
         {
             try
@@ -74,7 +90,7 @@ namespace ControleGastos.API.Controllers
 
         [HttpDelete]
         [Route("id")]
-        [AllowAnonymous]
+        [Authorize]
         public async Task<IActionResult> Delete(long id)
         {
             try

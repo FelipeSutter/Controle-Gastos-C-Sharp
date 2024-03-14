@@ -3,6 +3,7 @@ using ControleGastos.API.Contracts.Usuario;
 using ControleGastos.API.Domain.Models;
 using ControleGastos.API.Domain.Repositories.Interfaces;
 using ControleGastos.API.Domain.Services.Interfaces;
+using System.Security.Authentication;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -13,17 +14,33 @@ public class UsuarioService : IUsuarioService
 
     private readonly IUsuarioRepository _usuarioRepository;
     private readonly IMapper _mapper;
-    // Colocar o private TokenService
+    private readonly TokenService _tokenService;
 
-    public UsuarioService(IUsuarioRepository usuarioRepository, IMapper mapper) { 
+    public UsuarioService(IUsuarioRepository usuarioRepository, IMapper mapper, TokenService tokenService) { 
         _usuarioRepository = usuarioRepository;
         _mapper = mapper;
+        _tokenService = tokenService;
     
     }
 
-    public async Task<UsuarioLoginResponseContract> Authenticate(UsuarioLoginRequestContract usuario)
+    public async Task<UsuarioLoginResponseContract> Authenticate(UsuarioLoginRequestContract contract)
     {
-        throw new NotImplementedException();
+        // Pega o email e a senha do usuario e verifica se existe esse email e se a senha é a correta
+        // Caso seja verdadeiro retorna um response passando o id, email e o token para autenticação
+        var usuario = await GetByEmail(contract.Email);
+
+        var hashPassword = GenerateHashPassword(contract.Senha);
+
+        if (usuario == null || usuario.Senha != hashPassword) {
+            throw new AuthenticationException("Usuário ou Senha inválidos");
+        }
+
+        return new UsuarioLoginResponseContract {
+            Id = usuario.Id,
+            Email = usuario.Email,
+            Token = _tokenService.GenerateToken(_mapper.Map<Usuario>(usuario)),
+        };
+
     }
 
     public async Task<IEnumerable<UsuarioResponseContract>> GetAll()

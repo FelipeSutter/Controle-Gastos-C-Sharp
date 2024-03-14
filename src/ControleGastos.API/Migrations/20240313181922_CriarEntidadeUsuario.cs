@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -27,6 +28,12 @@ namespace ControleGastos.API.Migrations
                 {
                     table.PrimaryKey("PK_usuario", x => x.Id);
                 });
+
+            migrationBuilder.InsertData(
+                table: "usuario",
+                columns: ["Email", "Senha", "DataCadastro", "DataInativacao"],
+                values: ["teste@gmail.com", "a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3", DateTime.Now, null]);
+
         }
 
         /// <inheritdoc />
