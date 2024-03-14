@@ -13,11 +13,13 @@ namespace ControleGastos.API.Data
     public class ApplicationContext(DbContextOptions<ApplicationContext> options) : DbContext(options) {
         
         public DbSet<Usuario> Usuarios { get; set; }
+        public DbSet<NaturezaDeLancamento> Naturezas { get; set; }
 
         // Isso cria o modelo definido dentro do UsuarioMap
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new UsuarioMap());
+            modelBuilder.ApplyConfiguration(new NaturezaDeLancamentoMap());
         }
 
     }
