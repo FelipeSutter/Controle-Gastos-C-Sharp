@@ -6,9 +6,7 @@ using System.Security.Authentication;
 
 namespace ControleGastos.API.Controllers
 {
-    [Route("[controller]")]
-    [ApiController]
-    public class UsuarioController : ControllerBase
+    public class UsuarioController : BaseController
     {
 
         private readonly IUsuarioService _usuarioService;
@@ -38,7 +36,7 @@ namespace ControleGastos.API.Controllers
         {
             try
             {
-                return Created("", await _usuarioService.Add(contract)); // a função espera retornar uma string e um objeto
+                return Created("", await _usuarioService.Add(contract, 0)); // a função espera retornar uma string e um objeto
             } catch (Exception ex) {
                 return Problem(ex.Message);
             }
@@ -50,7 +48,7 @@ namespace ControleGastos.API.Controllers
         {
             try
             {
-                return Ok(await _usuarioService.GetAll()); 
+                return Ok(await _usuarioService.GetAll(0)); 
             }
             catch (Exception ex)
             {
@@ -65,7 +63,7 @@ namespace ControleGastos.API.Controllers
         {
             try
             {
-                return Ok(await _usuarioService.GetById(id));
+                return Ok(await _usuarioService.GetById(id, 0));
             }
             catch (Exception ex)
             {
@@ -80,7 +78,7 @@ namespace ControleGastos.API.Controllers
         {
             try
             {
-                return Ok(await _usuarioService.Update(id, contract));
+                return Ok(await _usuarioService.Update(id, contract, 0));
             }
             catch (Exception ex)
             {
@@ -95,7 +93,7 @@ namespace ControleGastos.API.Controllers
         {
             try
             {
-                await _usuarioService.Delete(id);
+                await _usuarioService.Delete(id, 0);
                 return NoContent();
             }
             catch (Exception ex)

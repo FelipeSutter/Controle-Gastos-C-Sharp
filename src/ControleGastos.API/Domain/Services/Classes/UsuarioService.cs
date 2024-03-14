@@ -43,7 +43,7 @@ public class UsuarioService : IUsuarioService
 
     }
 
-    public async Task<IEnumerable<UsuarioResponseContract>> GetAll()
+    public async Task<IEnumerable<UsuarioResponseContract>> GetAll(long idUsuario)
     {
         var usuarios =  await _usuarioRepository.GetAll();
         return usuarios.Select(u => _mapper.Map<UsuarioResponseContract>(u));   
@@ -56,13 +56,13 @@ public class UsuarioService : IUsuarioService
 
     }
 
-    public async Task<UsuarioResponseContract> GetById(long id)
+    public async Task<UsuarioResponseContract> GetById(long id, long idUsuario)
     {
         var usuario = await _usuarioRepository.GetById(id);
         return _mapper.Map<UsuarioResponseContract>(usuario);
     }
 
-    public async Task<UsuarioResponseContract> Add(UsuarioRequestContract request) {
+    public async Task<UsuarioResponseContract> Add(UsuarioRequestContract request, long idUsuario) {
         var usuario = _mapper.Map<Usuario>(request);
 
         usuario.Senha = GenerateHashPassword(usuario.Senha);
@@ -73,10 +73,10 @@ public class UsuarioService : IUsuarioService
         return _mapper.Map<UsuarioResponseContract>(usuario);
     }
 
-    public async Task<UsuarioResponseContract> Update(long id, UsuarioRequestContract request)
+    public async Task<UsuarioResponseContract> Update(long id, UsuarioRequestContract request, long idUsuario)
     {
         // Verificar se já existe um usuário, se não existir lança uma exception
-        _ = await GetById(id) ?? throw new Exception("Usuário não encontrado para atualização");
+        _ = await GetById(id, 0) ?? throw new Exception("Usuário não encontrado para atualização");
 
         var usuario = _mapper.Map<Usuario>(request);
         usuario.Id = id;
@@ -87,7 +87,7 @@ public class UsuarioService : IUsuarioService
 
     }
 
-    public async Task Delete(long id) {
+    public async Task Delete(long id, long idUsuario) {
         // Acabar o método depois e continuar fazendo os outros métodos
         var usuario = await _usuarioRepository.GetById(id) ?? throw new Exception("Usuário não encontrado para inativação");
         await _usuarioRepository.Delete(_mapper.Map<Usuario>(usuario));

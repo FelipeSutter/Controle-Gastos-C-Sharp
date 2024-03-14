@@ -6,7 +6,7 @@ public interface INaturezaDeLancamentoRepository : IRepository<NaturezaDeLancame
 {
 
     // Esse método vai pegar todas as naturezas vinculadas ao id do usuário passado 
-    Task<IEnumerable<NaturezaDeLancamento>> GetByIdUsuario(long id);
+    Task<IEnumerable<NaturezaDeLancamento>> GetByIdUsuario(long idUsuario);
 
 
 }

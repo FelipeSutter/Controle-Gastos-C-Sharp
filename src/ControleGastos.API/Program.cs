@@ -1,6 +1,7 @@
 using System.Text;
 using AutoMapper;
 using ControleGastos.API.AutoMapper;
+using ControleGastos.API.Controllers;
 using ControleGastos.API.Data;
 using ControleGastos.API.Domain.Repositories.Classes;
 using ControleGastos.API.Domain.Repositories.Interfaces;

@@ -19,39 +19,41 @@ public class NaturezaDeLancamentoService : INaturezaDeLancamentoService {
         _usuarioRepository = usuarioRepository;
     }
 
-    public async Task<IEnumerable<NaturezaDeLancamentoResponseContract>> GetAll() {
-        var naturezaDeLancamentos = await _naturezaDeLancamentoRepository.GetAll();
+    public async Task<IEnumerable<NaturezaDeLancamentoResponseContract>> GetAll(long idUsuario) {
+        var naturezaDeLancamentos = await _naturezaDeLancamentoRepository.GetByIdUsuario(idUsuario);
         return naturezaDeLancamentos.Select(u => _mapper.Map<NaturezaDeLancamentoResponseContract>(u));
     }
 
-    public async Task<IEnumerable<NaturezaDeLancamentoResponseContract>> GetByIdUsuario(long id) {
+    public async Task<IEnumerable<NaturezaDeLancamentoResponseContract>> GetByIdUsuario(long id, long idUsuario) {
+        var naturezaDeLancamento = await GetByIdAndIdUsuario(id, idUsuario);
+
+        // Esse método está bugado
+
         var naturezaDeLancamentos = await _naturezaDeLancamentoRepository.GetByIdUsuario(id);
         return naturezaDeLancamentos.Select(n => _mapper.Map<NaturezaDeLancamentoResponseContract>(n));
 
     }
 
-    public async Task<NaturezaDeLancamentoResponseContract> GetById(long id) {
-        var naturezaDeLancamento = await _naturezaDeLancamentoRepository.GetById(id);
+    public async Task<NaturezaDeLancamentoResponseContract> GetById(long id, long idUsuario) {
+        var naturezaDeLancamento = await GetByIdAndIdUsuario(id, idUsuario);
+
         return _mapper.Map<NaturezaDeLancamentoResponseContract>(naturezaDeLancamento);
     }
 
-    public async Task<NaturezaDeLancamentoResponseContract> Add(NaturezaDeLancamentoRequestContract request) {
+    public async Task<NaturezaDeLancamentoResponseContract> Add(NaturezaDeLancamentoRequestContract request, long idUsuario) {
         var naturezaDeLancamento = _mapper.Map<NaturezaDeLancamento>(request);
-        var usuario = _usuarioRepository.GetById(naturezaDeLancamento.IdUsuario);
 
         naturezaDeLancamento.DataCadastro = DateTime.Now;
-        naturezaDeLancamento.IdUsuario = usuario.Id;
+        naturezaDeLancamento.IdUsuario = idUsuario;
 
         naturezaDeLancamento = await _naturezaDeLancamentoRepository.Add(naturezaDeLancamento);
 
         return _mapper.Map<NaturezaDeLancamentoResponseContract>(naturezaDeLancamento);
     }
 
-    public async Task<NaturezaDeLancamentoResponseContract> Update(long id, NaturezaDeLancamentoRequestContract request) {
-        var naturezaDeLancamento = _mapper.Map<NaturezaDeLancamento>(request);
-        var usuario = _usuarioRepository.GetById(naturezaDeLancamento.IdUsuario);
-
-        naturezaDeLancamento = await GetByIdAndIdUsuario(id, usuario.Id);
+    public async Task<NaturezaDeLancamentoResponseContract> Update(long id, NaturezaDeLancamentoRequestContract request, long idUsuario) {
+        
+        var naturezaDeLancamento = await GetByIdAndIdUsuario(id, idUsuario);
 
         naturezaDeLancamento.Descricao = request.Descricao;
         naturezaDeLancamento.Observacao = request.Observacao;
@@ -62,12 +64,9 @@ public class NaturezaDeLancamentoService : INaturezaDeLancamentoService {
 
     }
 
-    public async Task Delete(long id) {
+    public async Task Delete(long id, long idUsuario) {
 
-        var naturezaDeLancamento = await _naturezaDeLancamentoRepository.GetById(id);
-        var usuario = _usuarioRepository.GetById(naturezaDeLancamento.IdUsuario);
-
-        naturezaDeLancamento = await GetByIdAndIdUsuario(id, usuario.Id);
+        var naturezaDeLancamento = await GetByIdAndIdUsuario(id, idUsuario);
 
         await _naturezaDeLancamentoRepository.Delete(_mapper.Map<NaturezaDeLancamento>(naturezaDeLancamento));
     }
