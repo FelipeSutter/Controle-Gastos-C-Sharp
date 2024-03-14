@@ -36,6 +36,7 @@ static void ConfigurarInjecaoDeDependencia(WebApplicationBuilder builder)
     // Configura o Mapper
     var config = new MapperConfiguration(config => {
         config.AddProfile<UsuarioProfile>();
+        config.AddProfile<NaturezaDeLancamentoProfile>();
         // Aqui entrará os outros profiles...
     });
 
@@ -50,6 +51,7 @@ static void ConfigurarInjecaoDeDependencia(WebApplicationBuilder builder)
     // Injeção de dependencias
     .AddScoped<TokenService>()
     .AddScoped<IUsuarioRepository, UsuarioRepository>() 
+    .AddScoped<INaturezaDeLancamentoRepository, NaturezaDeLancamentoRepository>()
     .AddScoped<IUsuarioService, UsuarioService>();
 }
 

@@ -20,8 +20,4 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.10" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Contracts\NaturezaDeLancamento\" />
-  </ItemGroup>
-
 </Project>
