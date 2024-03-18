@@ -1,5 +1,6 @@
 ﻿using ControleGastos.API.Contracts.NaturezaDeLancamento;
 using ControleGastos.API.Domain.Services.Interfaces;
+using ControleGastos.API.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,6 +21,8 @@ namespace ControleGastos.API.Controllers {
             try
             {
                 return Created("", await _naturezaDeLancamentoService.Add(contract, GetLoggedUserId())); // a função espera retornar uma string e um objeto
+            } catch (BadRequestException ex) {
+                return BadRequest(BadRequest(ex));
             } catch (Exception ex) {
                 return Problem(ex.Message);
             }
@@ -47,8 +50,9 @@ namespace ControleGastos.API.Controllers {
             try
             {
                 return Ok(await _naturezaDeLancamentoService.GetById(id, GetLoggedUserId()));
-            }
-            catch (Exception ex)
+            } catch (NotFoundException ex) {
+                return NotFound(NotFound(ex));
+            } catch (Exception ex)
             {
                 return Problem(ex.Message);
             }
@@ -62,8 +66,11 @@ namespace ControleGastos.API.Controllers {
             try
             {
                 return Ok(await _naturezaDeLancamentoService.Update(id, contract, GetLoggedUserId()));
-            }
-            catch (Exception ex)
+            } catch (NotFoundException ex) {
+                return NotFound(NotFound(ex));
+            } catch (BadRequestException ex) {
+                return BadRequest(BadRequest(ex));
+            } catch (Exception ex)
             {
                 return Problem(ex.Message);
             }
@@ -78,8 +85,9 @@ namespace ControleGastos.API.Controllers {
             {
                 await _naturezaDeLancamentoService.Delete(id, GetLoggedUserId());
                 return NoContent();
-            }
-            catch (Exception ex)
+            } catch (NotFoundException ex) {
+                return NotFound(NotFound(ex));
+            } catch (Exception ex)
             {
                 return Problem(ex.Message);
             }

@@ -3,6 +3,7 @@ using ControleGastos.API.Contracts.Areceber;
 using ControleGastos.API.Domain.Models;
 using ControleGastos.API.Domain.Repositories.Interfaces;
 using ControleGastos.API.Domain.Services.Interfaces;
+using ControleGastos.API.Exceptions;
 
 namespace ControleGastos.API.Domain.Services.Classes;
 
@@ -38,6 +39,11 @@ public class AreceberService : IAreceberService {
     }
 
     public async Task<AreceberResponseContract> Add(AreceberRequestContract request, long idUsuario) {
+        
+        if(request.ValorOriginal < 0 || request.ValorRecebido < 0) {
+            throw new BadRequestException("Os campos de ValorOriginal e ValorRecebido devem ser válidos, positivos.");
+        }
+
         var areceber = _mapper.Map<Areceber>(request);
 
         areceber.DataCadastro = DateTime.Now;
@@ -49,7 +55,11 @@ public class AreceberService : IAreceberService {
     }
 
     public async Task<AreceberResponseContract> Update(long id, AreceberRequestContract request, long idUsuario) {
-        
+
+        if (request.ValorOriginal < 0 || request.ValorRecebido < 0) {
+            throw new BadRequestException("Os campos de ValorOriginal e ValorRecebido devem ser válidos, positivos.");
+        }
+
         var areceber = await GetByIdAndIdUsuario(id, idUsuario);
 
         // Dessa forma coloca o que não quer que atualize
@@ -88,7 +98,7 @@ public class AreceberService : IAreceberService {
         var areceber = await _areceberRepository.GetById(id);
         
         if (areceber == null || areceber.IdUsuario != idUsuario) {
-            throw new Exception($"Não foi encontrado nenhumn titulo a receber pelo id {id}");
+            throw new NotFoundException($"Não foi encontrado nenhumn titulo a receber pelo id {id}");
         }
 
         return areceber;

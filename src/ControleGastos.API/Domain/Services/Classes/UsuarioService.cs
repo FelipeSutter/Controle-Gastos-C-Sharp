@@ -3,6 +3,7 @@ using ControleGastos.API.Contracts.Usuario;
 using ControleGastos.API.Domain.Models;
 using ControleGastos.API.Domain.Repositories.Interfaces;
 using ControleGastos.API.Domain.Services.Interfaces;
+using ControleGastos.API.Exceptions;
 using System.Security.Authentication;
 using System.Security.Cryptography;
 using System.Text;
@@ -32,7 +33,7 @@ public class UsuarioService : IUsuarioService
         var hashPassword = GenerateHashPassword(contract.Senha);
 
         if (usuario == null || usuario.Senha != hashPassword) {
-            throw new AuthenticationException("Usuário ou Senha inválidos");
+            throw new UnauthorizedException("Usuário ou Senha inválidos");
         }
 
         return new UsuarioLoginResponseContract {
@@ -76,7 +77,7 @@ public class UsuarioService : IUsuarioService
     public async Task<UsuarioResponseContract> Update(long id, UsuarioRequestContract request, long idUsuario)
     {
         // Verificar se já existe um usuário, se não existir lança uma exception
-        _ = await GetById(id, 0) ?? throw new Exception("Usuário não encontrado para atualização");
+        _ = await GetById(id, 0) ?? throw new NotFoundException("Usuário não encontrado para atualização");
 
         var usuario = _mapper.Map<Usuario>(request);
         usuario.Id = id;
@@ -89,7 +90,7 @@ public class UsuarioService : IUsuarioService
 
     public async Task Delete(long id, long idUsuario) {
         // Acabar o método depois e continuar fazendo os outros métodos
-        var usuario = await _usuarioRepository.GetById(id) ?? throw new Exception("Usuário não encontrado para inativação");
+        var usuario = await _usuarioRepository.GetById(id) ?? throw new NotFoundException("Usuário não encontrado para inativação");
         await _usuarioRepository.Delete(_mapper.Map<Usuario>(usuario));
     }
 

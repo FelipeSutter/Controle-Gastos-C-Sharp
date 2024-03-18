@@ -3,6 +3,7 @@ using ControleGastos.API.Contracts.NaturezaDeLancamento;
 using ControleGastos.API.Domain.Models;
 using ControleGastos.API.Domain.Repositories.Interfaces;
 using ControleGastos.API.Domain.Services.Interfaces;
+using ControleGastos.API.Exceptions;
 
 namespace ControleGastos.API.Domain.Services.Classes;
 
@@ -75,7 +76,7 @@ public class NaturezaDeLancamentoService : INaturezaDeLancamentoService {
         var naturezaDeLancamento = await _naturezaDeLancamentoRepository.GetById(id);
         
         if (naturezaDeLancamento == null || naturezaDeLancamento.IdUsuario != idUsuario) {
-            throw new Exception($"Não foi encontrada nenhuma natureza pelo id {id}");
+            throw new NotFoundException($"Não foi encontrada nenhuma natureza pelo id {id}");
         }
 
         return naturezaDeLancamento;

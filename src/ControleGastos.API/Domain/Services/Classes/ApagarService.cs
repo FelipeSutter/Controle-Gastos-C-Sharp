@@ -3,6 +3,7 @@ using ControleGastos.API.Contracts.Apagar;
 using ControleGastos.API.Domain.Models;
 using ControleGastos.API.Domain.Repositories.Interfaces;
 using ControleGastos.API.Domain.Services.Interfaces;
+using ControleGastos.API.Exceptions;
 
 namespace ControleGastos.API.Domain.Services.Classes;
 
@@ -38,6 +39,11 @@ public class ApagarService : IApagarService {
     }
 
     public async Task<ApagarResponseContract> Add(ApagarRequestContract request, long idUsuario) {
+
+        if (request.ValorOriginal < 0 || request.ValorPago < 0) {
+            throw new BadRequestException("Os campos de ValorOriginal e ValorPago devem ser válidos, positivos.");
+        }
+
         var apagar = _mapper.Map<Apagar>(request);
 
         apagar.DataCadastro = DateTime.Now;
@@ -49,7 +55,11 @@ public class ApagarService : IApagarService {
     }
 
     public async Task<ApagarResponseContract> Update(long id, ApagarRequestContract request, long idUsuario) {
-        
+
+        if (request.ValorOriginal < 0 || request.ValorPago < 0) {
+            throw new BadRequestException("Os campos de ValorOriginal e ValorPago devem ser válidos, positivos.");
+        }
+
         var apagar = await GetByIdAndIdUsuario(id, idUsuario);
 
         // Dessa forma coloca o que não quer que atualize
@@ -88,7 +98,7 @@ public class ApagarService : IApagarService {
         var apagar = await _apagarRepository.GetById(id);
         
         if (apagar == null || apagar.IdUsuario != idUsuario) {
-            throw new Exception($"Não foi encontrado nenhumn titulo a pagar pelo id {id}");
+            throw new NotFoundException($"Não foi encontrado nenhumn titulo a pagar pelo id {id}");
         }
 
         return apagar;

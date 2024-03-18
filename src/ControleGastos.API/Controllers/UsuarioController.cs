@@ -1,5 +1,6 @@
 ﻿using ControleGastos.API.Contracts.Usuario;
 using ControleGastos.API.Domain.Services.Interfaces;
+using ControleGastos.API.Exceptions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Authentication;
@@ -21,8 +22,8 @@ namespace ControleGastos.API.Controllers
         public async Task<IActionResult> Authenticate(UsuarioRequestContract contract) {
             try {
                 return Ok(await _usuarioService.Authenticate(contract)); 
-            } catch (AuthenticationException ex) {
-                return Unauthorized(new { statusCode = 401, message = ex.Message });
+            } catch (UnauthorizedException ex) {
+                return Unauthorized(Unauthorized(ex));
             }
             
             catch (Exception ex) {
@@ -37,6 +38,8 @@ namespace ControleGastos.API.Controllers
             try
             {
                 return Created("", await _usuarioService.Add(contract, 0)); // a função espera retornar uma string e um objeto
+            } catch (BadRequestException ex) {
+                return BadRequest(BadRequest(ex));
             } catch (Exception ex) {
                 return Problem(ex.Message);
             }
@@ -49,8 +52,7 @@ namespace ControleGastos.API.Controllers
             try
             {
                 return Ok(await _usuarioService.GetAll(0)); 
-            }
-            catch (Exception ex)
+            }  catch (Exception ex)
             {
                 return Problem(ex.Message);
             }
@@ -64,8 +66,9 @@ namespace ControleGastos.API.Controllers
             try
             {
                 return Ok(await _usuarioService.GetById(id, 0));
-            }
-            catch (Exception ex)
+            } catch (NotFoundException ex) {
+                return NotFound(NotFound(ex));
+            } catch (Exception ex)
             {
                 return Problem(ex.Message);
             }
@@ -79,8 +82,11 @@ namespace ControleGastos.API.Controllers
             try
             {
                 return Ok(await _usuarioService.Update(id, contract, 0));
-            }
-            catch (Exception ex)
+            } catch (BadRequestException ex) {
+                return BadRequest(BadRequest(ex));
+            } catch (NotFoundException ex) {
+                return NotFound(NotFound(ex));
+            } catch (Exception ex)
             {
                 return Problem(ex.Message);
             }
@@ -95,8 +101,9 @@ namespace ControleGastos.API.Controllers
             {
                 await _usuarioService.Delete(id, 0);
                 return NoContent();
-            }
-            catch (Exception ex)
+            } catch (NotFoundException ex) {
+                return NotFound(NotFound(ex));
+            } catch (Exception ex)
             {
                 return Problem(ex.Message);
             }
