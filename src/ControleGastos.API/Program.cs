@@ -53,13 +53,14 @@ static void ConfigurarInjecaoDeDependencia(WebApplicationBuilder builder)
 
     // Injeção de dependencias
     .AddScoped<TokenService>()
-    .AddScoped<IUsuarioRepository, UsuarioRepository>() 
+    .AddScoped<IUsuarioRepository, UsuarioRepository>()
     .AddScoped<INaturezaDeLancamentoRepository, NaturezaDeLancamentoRepository>()
     .AddScoped<IApagarRepository, ApagarRepository>()
     .AddScoped<IAreceberRepository, AreceberRepository>()
     .AddScoped<IUsuarioService, UsuarioService>()
     .AddScoped<INaturezaDeLancamentoService, NaturezaDeLancamentoService>()
-    .AddScoped<IApagarService, ApagarService>();
+    .AddScoped<IApagarService, ApagarService>()
+    .AddScoped<IAreceberService, AreceberService>();
 }
 
 // Configura o serviços da API.
