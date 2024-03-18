@@ -34,10 +34,11 @@ static void ConfigurarInjecaoDeDependencia(WebApplicationBuilder builder)
     builder.Services.AddDbContext<ApplicationContext>(options => 
     options.UseNpgsql(connectionString), ServiceLifetime.Transient, ServiceLifetime.Transient);
 
-    // Configura o Mapper
+    // Configura o Mapper, isso é para converter de uma classe para outra
     var config = new MapperConfiguration(config => {
         config.AddProfile<UsuarioProfile>();
         config.AddProfile<NaturezaDeLancamentoProfile>();
+        config.AddProfile<ApagarProfile>();
         // Aqui entrará os outros profiles...
     });
 
