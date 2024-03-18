@@ -5,36 +5,36 @@ using Microsoft.EntityFrameworkCore;
 
 namespace ControleGastos.API.Domain.Repositories.Classes;
 
-public class ApagarRepository : IApagarRepository
+public class AreceberRepository : IAreceberRepository
 {
 
     private readonly ApplicationContext _context;
 
     // Cria a injeção de dependendia do applicationContext
-    public ApagarRepository(ApplicationContext context)
+    public AreceberRepository(ApplicationContext context)
     {
         _context = context;
     }
 
-    public async Task<Apagar> Add(Apagar entity)
+    public async Task<Areceber> Add(Areceber entity)
     {
         // Adiciona em memória, mas não salva as mudanças no banco
-        await _context.Apagar.AddAsync(entity);
+        await _context.Areceber.AddAsync(entity);
         // Salva as mudanças no banco
         await _context.SaveChangesAsync();
 
         return entity;
     }
 
-    public async Task<Apagar?> Update(Apagar entity)
+    public async Task<Areceber?> Update(Areceber entity)
     {
-        Apagar entityBanco = await _context.Apagar
+        Areceber entityBanco = await _context.Areceber
             .Where(u => u.Id == entity.Id)
             .FirstOrDefaultAsync();
 
         // Recupera o valor que foi achado da entidade e troca os valores dela pelos valores passados em entity, atualizando-os
         _context.Entry(entityBanco).CurrentValues.SetValues(entity);
-        _context.Update<Apagar>(entityBanco);
+        _context.Update<Areceber>(entityBanco);
 
         await _context.SaveChangesAsync();
 
@@ -42,31 +42,31 @@ public class ApagarRepository : IApagarRepository
 
     }
 
-    public async Task Delete(Apagar entity)
+    public async Task Delete(Areceber entity)
     {
         // Delete lógico, só altera a data de inativação
         entity.DataInativacao = DateTime.Now;
         await Update(entity);
     }
 
-    public async Task<IEnumerable<Apagar?>> GetAll()
+    public async Task<IEnumerable<Areceber?>> GetAll()
     {
         // Recupera todos os usuários e ordena eles baseado no id
-        return await _context.Apagar.AsNoTracking()
+        return await _context.Areceber.AsNoTracking()
             .OrderBy(u => u.Id)
             .ToListAsync();
     }
 
-    public async Task<Apagar?> GetById(long id)
+    public async Task<Areceber?> GetById(long id)
     {
-        return await _context.Apagar.AsNoTracking()
+        return await _context.Areceber.AsNoTracking()
             .Where(u => u.Id == id)
             .FirstOrDefaultAsync();
     }
 
     // Pega o id do usuário que está na entidade e compara com o id que está vindo no parâmetro
-    public async Task<IEnumerable<Apagar>> GetByIdUsuario(long id) {
-        return await _context.Apagar.AsNoTracking()
+    public async Task<IEnumerable<Areceber>> GetByIdUsuario(long id) {
+        return await _context.Areceber.AsNoTracking()
             .Where(u => u.IdUsuario == id)
             .OrderBy(u => u.Id)
             .ToListAsync();
