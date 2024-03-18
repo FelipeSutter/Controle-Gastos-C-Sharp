@@ -8,15 +8,12 @@ namespace ControleGastos.API.Domain.Services.Classes;
 
 public class ApagarService : IApagarService {
 
-    private readonly IUsuarioRepository _usuarioRepository;
     private readonly IApagarRepository _apagarRepository;
     private readonly IMapper _mapper;
 
-    public ApagarService(IApagarRepository apagarRepository, IMapper mapper, 
-        IUsuarioRepository usuarioRepository) {
+    public ApagarService(IApagarRepository apagarRepository, IMapper mapper) {
         _apagarRepository = apagarRepository;
         _mapper = mapper;
-        _usuarioRepository = usuarioRepository;
     }
 
     public async Task<IEnumerable<ApagarResponseContract>> GetAll(long idUsuario) {
@@ -29,8 +26,8 @@ public class ApagarService : IApagarService {
 
         // Esse método está bugado
 
-        var apagar = await _apagarRepository.GetByIdUsuario(id);
-        return apagar.Select(n => _mapper.Map<ApagarResponseContract>(n));
+        var apagars = await _apagarRepository.GetByIdUsuario(id);
+        return apagars.Select(n => _mapper.Map<ApagarResponseContract>(n));
 
     }
 
@@ -55,12 +52,28 @@ public class ApagarService : IApagarService {
         
         var apagar = await GetByIdAndIdUsuario(id, idUsuario);
 
-        apagar.Descricao = request.Descricao;
-        apagar.Observacao = request.Observacao;
+        // Dessa forma coloca o que não quer que atualize
+        var contrato = _mapper.Map<Apagar>(request);
+        contrato.IdUsuario = apagar.IdUsuario;
+        contrato.Id = apagar.Id;
+        contrato.DataCadastro = apagar.DataCadastro;
+       
+        
+        /*  Dá pra fazer dessa forma, que coloca o que quer atualizar
+      
+            apagar.Descricao = request.Descricao;
+            apagar.Observacao = request.Observacao;
+            apagar.ValorOriginal = request.ValorOriginal;
+            apagar.ValorPago = request.ValorPago;
+            apagar.DataPagamento = request.DataPagamento;
+            apagar.DataReferencia = request.DataReferencia;
+            apagar.DataVencimento = request.DataVencimento;
+            apagar.IdNatureza = request.IdNatureza;
+        */
 
-        apagar = await _apagarRepository.Update(apagar);
+        apagar = await _apagarRepository.Update(contrato);
 
-        return _mapper.Map<ApagarResponseContract>(apagar);
+        return _mapper.Map<ApagarResponseContract>(contrato);
 
     }
 
@@ -75,7 +88,7 @@ public class ApagarService : IApagarService {
         var apagar = await _apagarRepository.GetById(id);
         
         if (apagar == null || apagar.IdUsuario != idUsuario) {
-            throw new Exception($"Não foi encontrada nenhuma natureza pelo id {id}");
+            throw new Exception($"Não foi encontrado nenhumn titulo a pagar pelo id {id}");
         }
 
         return apagar;

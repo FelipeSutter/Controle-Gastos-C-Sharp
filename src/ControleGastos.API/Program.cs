@@ -55,7 +55,8 @@ static void ConfigurarInjecaoDeDependencia(WebApplicationBuilder builder)
     .AddScoped<INaturezaDeLancamentoRepository, NaturezaDeLancamentoRepository>()
     .AddScoped<IApagarRepository, ApagarRepository>()
     .AddScoped<IUsuarioService, UsuarioService>()
-    .AddScoped<INaturezaDeLancamentoService, NaturezaDeLancamentoService>();
+    .AddScoped<INaturezaDeLancamentoService, NaturezaDeLancamentoService>()
+    .AddScoped<IApagarService, ApagarService>();
 }
 
 // Configura o serviços da API.
