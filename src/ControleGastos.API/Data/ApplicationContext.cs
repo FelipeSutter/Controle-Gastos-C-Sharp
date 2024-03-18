@@ -10,8 +10,8 @@ namespace ControleGastos.API.Data
         
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<NaturezaDeLancamento> Naturezas { get; set; }
-
         public DbSet<Apagar> Apagar { get; set; }
+        public DbSet<Areceber> Areceber { get; set; }
 
 
         // Isso cria o modelo definido dentro do UsuarioMap
@@ -20,6 +20,7 @@ namespace ControleGastos.API.Data
             modelBuilder.ApplyConfiguration(new UsuarioMap());
             modelBuilder.ApplyConfiguration(new NaturezaDeLancamentoMap());
             modelBuilder.ApplyConfiguration(new ApagarMap());
+            modelBuilder.ApplyConfiguration(new AreceberMap());
         }
 
     }

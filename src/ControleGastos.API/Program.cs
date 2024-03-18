@@ -39,6 +39,7 @@ static void ConfigurarInjecaoDeDependencia(WebApplicationBuilder builder)
         config.AddProfile<UsuarioProfile>();
         config.AddProfile<NaturezaDeLancamentoProfile>();
         config.AddProfile<ApagarProfile>();
+        config.AddProfile<AreceberProfile>();
         // Aqui entrará os outros profiles...
     });
 
