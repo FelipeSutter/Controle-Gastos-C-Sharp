@@ -1,6 +1,6 @@
 # Controle-Gastos-C-Sharp
 
-<p>Uma api feita para controle de gastos de um usuário, baseado no curso da Udemy ministrado por Weberson Rodrigues</p>
+<p>Uma api feita para controle de gastos de um <strong>usuário</strong>, baseado no curso da Udemy ministrado por Weberson Rodrigues</p>
 
 <h2>Sobre o projeto</h2>
 <p>O projeto consiste em um gerenciador de gastos do usuário, onde ele consegue visualizar as contas a <strong>pagar</strong> e a <strong>receber</strong> dele, além da <strong>Natureza de Lançamento</strong> de cada uma. 
