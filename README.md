@@ -41,4 +41,4 @@
 
 ``` Exceptions ``` camada de exceções da aplicação onde é tratado o erro, afim de enviar uma mensagem amigável ao usuário.
 
-``` Migrations ``` tudo que é relacionado diretamente aos dados e manipulação de dados no banco de dados fica aqui. Por exemplo a criação de tabelas e inserção de dados que devem ser registrados inicialmente no banco ficam aqui. Também é comum encontrar essa camada com comandos SQL, pois é uma forma mais segura de se criar as tabelas e manipular os dados da mesma.
+``` Migrations ``` tudo que é relacionado diretamente aos dados e manipulação de dados no banco de dados fica aqui. Por exemplo a criação de tabelas e inserção de dados que devem ser registrados inicialmente no banco ficam aqui. Também é comum encontrar essa camada com comandos SQL, pois é uma forma mais segura de se criar as tabelas e manipular os dados do sistema.
